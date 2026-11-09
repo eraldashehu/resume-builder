@@ -1,6 +1,6 @@
 interface SummaryInput {
   title: string;
-  skills: string;
+  skills: string[];
   years: number;
 }
 
@@ -9,13 +9,9 @@ interface SummaryInput {
  * The user then edits it into their own words.
  */
 export function suggestSummary({ title, skills, years }: SummaryInput): string {
-  const topSkills = skills
-    .split(',')
-    .map((s) => s.trim())
-    .filter(Boolean)
-    .slice(0, 3);
-  const role = title || 'Professional';
+  const role = title.trim() || 'Professional';
   const exp = years > 0 ? `${years}+ years of experience` : 'hands-on experience';
-  const skillText = topSkills.length ? ` with ${topSkills.join(', ')}` : '';
+  const top = skills.slice(0, 3);
+  const skillText = top.length ? ` with ${top.join(', ')}` : '';
   return `${role} with ${exp}${skillText}. Focused on building reliable, user-friendly products, communicating clearly with teammates and delivering work on time.`;
 }

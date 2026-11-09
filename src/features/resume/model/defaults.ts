@@ -1,10 +1,10 @@
-import type { Education, Experience, Resume } from '../types';
+import type { Education, Experience, Resume } from './types';
 
-let nextId = 100;
-export const uid = (): string => `id-${Date.now().toString(36)}-${nextId++}`;
+let counter = 0;
+export const createId = (prefix: string): string => `${prefix}-${Date.now().toString(36)}-${(counter++).toString(36)}`;
 
-export const emptyExperience = (): Experience => ({
-  id: uid(),
+export const createExperience = (): Experience => ({
+  id: createId('exp'),
   role: '',
   company: '',
   start: '',
@@ -13,13 +13,15 @@ export const emptyExperience = (): Experience => ({
   bullets: '',
 });
 
-export const emptyEducation = (): Education => ({
-  id: uid(),
+export const createEducation = (): Education => ({
+  id: createId('edu'),
   degree: '',
   school: '',
   start: '',
   end: '',
 });
+
+export const ACCENT_PRESETS = ['#1F4E79', '#0F766E', '#7C2D5B', '#B45309', '#334155'] as const;
 
 export const sampleResume: Resume = {
   personal: {
@@ -54,16 +56,10 @@ export const sampleResume: Resume = {
     },
   ],
   education: [
-    {
-      id: 'edu-1',
-      degree: 'B.Sc. Computer Engineering',
-      school: 'Polytechnic University of Tirana',
-      start: '2016',
-      end: '2020',
-    },
+    { id: 'edu-1', degree: 'B.Sc. Computer Engineering', school: 'Polytechnic University of Tirana', start: '2016', end: '2020' },
   ],
-  skills: 'React, TypeScript, JavaScript, HTML5, CSS, REST APIs, Git, Accessibility',
-  settings: { accent: '#1F4E79', template: 'classic' },
+  skills: ['React', 'TypeScript', 'JavaScript', 'HTML5', 'CSS', 'REST APIs', 'Git', 'Accessibility'],
+  settings: { accent: ACCENT_PRESETS[0], template: 'classic' },
 };
 
 export const blankResume: Resume = {
@@ -71,8 +67,6 @@ export const blankResume: Resume = {
   summary: '',
   experience: [],
   education: [],
-  skills: '',
+  skills: [],
   settings: sampleResume.settings,
 };
-
-export const accents: readonly string[] = ['#1F4E79', '#0F766E', '#7C2D5B', '#B45309', '#334155'];

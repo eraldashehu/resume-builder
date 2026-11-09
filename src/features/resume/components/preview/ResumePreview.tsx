@@ -1,22 +1,22 @@
+import { memo } from 'react';
 import type { CSSProperties } from 'react';
-import { formatRange } from '../lib/format';
-import type { Resume } from '../types';
+import { formatRange, toLines } from '../../lib/format';
+import type { Resume } from '../../model/types';
 
-interface PreviewProps {
+interface ResumePreviewProps {
   resume: Resume;
+  /** True while the preview is showing slightly older data than the editor. */
+  stale?: boolean;
 }
 
-const toLines = (text: string): string[] =>
-  text
-    .split('\n')
-    .map((b) => b.trim())
-    .filter(Boolean);
-
-export function Preview({ resume }: PreviewProps) {
-  const { personal, experience, education, settings } = resume;
-  const skills = resume.skills.split(',').map((s) => s.trim()).filter(Boolean);
+/**
+ * The printable A4 sheet. Plain HTML and CSS (not Ant Design), so the PDF
+ * looks exactly like the screen. Memoized: it only re-renders when `resume` changes.
+ */
+export const ResumePreview = memo(function ResumePreview({ resume, stale = false }: ResumePreviewProps) {
+  const { personal, summary, experience, education, skills, settings } = resume;
   const contact = [personal.email, personal.phone, personal.location, personal.website].filter(Boolean);
-  const style = { '--accent': settings.accent } as CSSProperties;
+  const style = { '--accent': settings.accent, opacity: stale ? 0.85 : 1 } as CSSProperties;
 
   return (
     <article className={`sheet tpl-${settings.template}`} style={style} aria-label="Resume preview">
@@ -32,10 +32,10 @@ export function Preview({ resume }: PreviewProps) {
         )}
       </header>
 
-      {resume.summary && (
+      {summary && (
         <section className="sheet-section">
           <h2>Professional Summary</h2>
-          <p>{resume.summary}</p>
+          <p>{summary}</p>
         </section>
       )}
 
@@ -43,22 +43,25 @@ export function Preview({ resume }: PreviewProps) {
         <section className="sheet-section">
           <h2>Experience</h2>
           <ol className="timeline">
-            {experience.map((job) => (
-              <li key={job.id}>
-                <div className="job-head">
-                  <strong>{job.role || 'Role'}</strong>
-                  <span className="dates">{formatRange(job.start, job.end, job.current)}</span>
-                </div>
-                {job.company && <div className="company">{job.company}</div>}
-                {toLines(job.bullets).length > 0 && (
-                  <ul className="bullets">
-                    {toLines(job.bullets).map((b, i) => (
-                      <li key={i}>{b}</li>
-                    ))}
-                  </ul>
-                )}
-              </li>
-            ))}
+            {experience.map((job) => {
+              const bullets = toLines(job.bullets);
+              return (
+                <li key={job.id}>
+                  <div className="job-head">
+                    <strong>{job.role || 'Role'}</strong>
+                    <span className="dates">{formatRange(job.start, job.end, job.current)}</span>
+                  </div>
+                  {job.company && <div className="company">{job.company}</div>}
+                  {bullets.length > 0 && (
+                    <ul className="bullets">
+                      {bullets.map((b, i) => (
+                        <li key={i}>{b}</li>
+                      ))}
+                    </ul>
+                  )}
+                </li>
+              );
+            })}
           </ol>
         </section>
       )}
@@ -90,4 +93,4 @@ export function Preview({ resume }: PreviewProps) {
       )}
     </article>
   );
-}
+});

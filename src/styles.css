@@ -1,97 +1,68 @@
-:root {
-  --bg: #eef1f5;
-  --panel: #ffffff;
-  --ink: #16202b;
-  --muted: #5c6875;
-  --line: #dde2e8;
-  --brand: #1f4e79;
-  --brand-ink: #ffffff;
-  --danger: #b42318;
-  --radius: 10px;
-  font-family: 'Figtree', system-ui, sans-serif;
-  color: var(--ink);
-  background: var(--bg);
+/* Ant Design styles the editor. This file only covers layout, the A4 sheet and print. */
+
+[hidden] { display: none !important; }
+
+.app-layout { min-height: 100vh; }
+
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  height: auto;
+  line-height: normal;
+  padding: 12px 24px;
+  background: #fff;
+  border-bottom: 1px solid #f0f0f0;
 }
-* { box-sizing: border-box; }
-body { margin: 0; }
-button, input, textarea, select { font: inherit; color: inherit; }
-button { cursor: pointer; }
-button:disabled { opacity: .45; cursor: default; }
-:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
-
-/* Top bar */
-.topbar {
-  position: sticky; top: 0; z-index: 10;
-  display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;
-  padding: 12px 24px; background: var(--panel); border-bottom: 1px solid var(--line);
-}
-.brand { display: flex; align-items: center; gap: 12px; }
-.brand strong { display: block; font-size: 17px; }
-.brand small { color: var(--muted); font-size: 12px; letter-spacing: .04em; }
-.logo { width: 36px; height: 36px; border-radius: 9px; display: grid; place-items: center; background: var(--brand); color: #fff; font-weight: 700; font-family: 'Source Serif 4', serif; font-size: 20px; }
-.top-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-.swatches { display: flex; gap: 6px; }
-.swatch { width: 22px; height: 22px; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 0 0 1px var(--line); padding: 0; }
-.swatch[aria-checked='true'] { box-shadow: 0 0 0 2px var(--ink); }
-select { padding: 7px 10px; border: 1px solid var(--line); border-radius: 8px; background: #fff; }
-.btn-primary { background: var(--brand); color: var(--brand-ink); border: 0; padding: 9px 16px; border-radius: 8px; font-weight: 600; }
-.btn-ghost { background: transparent; border: 1px solid var(--line); padding: 8px 12px; border-radius: 8px; font-weight: 500; }
-.btn-ghost:hover { border-color: var(--brand); }
-.btn-suggest { border: 1px solid #c7d6e8; background: #eef4fb; color: var(--brand); padding: 6px 12px; border-radius: 999px; font-weight: 600; font-size: 13px; }
-.confirm { display: inline-flex; gap: 8px; align-items: center; font-size: 14px; }
-.confirm button { border: 1px solid var(--line); background: #fff; padding: 6px 10px; border-radius: 8px; }
-button.danger { color: var(--danger); }
-
-/* Layout */
-.tabs { display: none; }
-.workspace { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: 24px; padding: 24px; max-width: 1400px; margin: 0 auto; }
-.pane-preview { position: sticky; top: 84px; align-self: start; max-height: calc(100vh - 100px); overflow: auto; padding-bottom: 8px; }
-.print-tip { color: var(--muted); font-size: 13px; text-align: center; }
-
-@media (max-width: 960px) {
-  .workspace { grid-template-columns: minmax(0, 1fr); padding: 16px; }
-  .pane-preview { position: static; max-height: none; }
-  .tabs { display: flex; gap: 4px; padding: 12px 16px 0; }
-  .tabs button { flex: 1; padding: 10px; border: 1px solid var(--line); background: #fff; border-radius: 8px; font-weight: 600; }
-  .tabs button[aria-selected='true'] { background: var(--brand); color: #fff; border-color: var(--brand); }
-  .show-edit .pane-preview, .show-preview .pane-edit { display: none; }
+.logo {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  background: #1677ff;
+  color: #fff;
+  font-weight: 700;
+  font-size: 18px;
 }
 
-/* Editor */
-.editor { display: flex; flex-direction: column; gap: 16px; }
-.panel { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); }
-.panel-head { display: flex; align-items: center; justify-content: space-between; padding: 14px 18px; border-bottom: 1px solid var(--line); }
-.panel-head h2 { margin: 0; font-size: 15px; letter-spacing: .02em; }
-.panel-body { padding: 18px; display: flex; flex-direction: column; gap: 14px; }
-.grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
-@media (max-width: 560px) { .grid-2 { grid-template-columns: minmax(0, 1fr); } }
-.field { display: flex; flex-direction: column; gap: 5px; min-width: 0; }
-.field-label { font-size: 12px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
-.field input, .field textarea { width: 100%; padding: 9px 11px; border: 1px solid var(--line); border-radius: 8px; background: #fbfcfd; resize: vertical; }
-.field input:focus, .field textarea:focus { border-color: var(--brand); background: #fff; outline: none; box-shadow: 0 0 0 3px rgba(31, 78, 121, .12); }
-.field-hint { font-size: 12.5px; color: var(--muted); }
-.present { padding: 9px 11px; border: 1px dashed var(--line); border-radius: 8px; color: var(--muted); }
-.check { display: flex; gap: 8px; align-items: center; font-size: 14px; }
-.item { border: 1px solid var(--line); border-radius: 8px; padding: 14px; display: flex; flex-direction: column; gap: 12px; }
-.item-tools { display: flex; align-items: center; gap: 6px; }
-.item-tools .item-index { margin-right: auto; font-weight: 600; font-size: 14px; }
-.item-tools button { border: 1px solid var(--line); background: #fff; border-radius: 6px; padding: 4px 9px; font-size: 13px; }
-.empty { color: var(--muted); margin: 0; }
+.app-content { padding: 24px; max-width: 1440px; width: 100%; margin: 0 auto; }
+.mobile-switch { margin-bottom: 16px; }
+.editor-list { display: flex; flex-direction: column; gap: 12px; }
+.editor-item { border: 1px solid #f0f0f0; border-radius: 8px; padding: 12px; }
 
-/* Resume sheet (A4 proportions) */
+.preview-panel { position: sticky; top: 88px; }
+.print-tip { text-align: center; margin-top: 12px; }
+
+@media (max-width: 991px) {
+  .app-header { position: static; padding: 12px 16px; }
+  .app-content { padding: 16px; }
+  .preview-panel { position: static; }
+}
+
+/* ---------- Resume sheet (A4 proportions) ---------- */
 .sheet {
   --accent: #1f4e79;
-  background: #fff; color: #1b1f24;
-  width: 100%; max-width: 794px; margin: 0 auto; aspect-ratio: 210 / 297; min-height: fit-content;
-  padding: 48px 52px; box-shadow: 0 10px 30px rgba(16, 24, 40, .12); border-radius: 4px;
-  font-size: 13.5px; line-height: 1.5; overflow-wrap: anywhere;
+  background: #fff;
+  color: #1b1f24;
+  width: 100%;
+  max-width: 794px;
+  margin: 0 auto;
+  min-height: 1123px;
+  padding: 48px 52px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+  border-radius: 4px;
+  font-size: 13.5px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+  transition: opacity 0.15s;
 }
 .sheet-head { border-bottom: 2px solid var(--accent); padding-bottom: 14px; margin-bottom: 18px; }
-.sheet h1 { font-family: 'Source Serif 4', Georgia, serif; font-size: 30px; margin: 0; color: var(--accent); line-height: 1.1; }
-.sheet-title { margin: 4px 0 8px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; font-size: 12px; }
+.sheet h1 { font-family: Georgia, 'Times New Roman', serif; font-size: 30px; margin: 0; color: var(--accent); line-height: 1.1; }
+.sheet-title { margin: 4px 0 8px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; font-size: 12px; }
 .sheet-contact { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 4px 16px; color: #4a5562; font-size: 12.5px; }
 .sheet-section { margin-bottom: 16px; }
-.sheet-section h2 { font-size: 11.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin: 0 0 8px; }
+.sheet-section h2 { font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin: 0 0 8px; }
 .sheet-section p { margin: 0; }
 .timeline { list-style: none; margin: 0; padding: 0 0 0 14px; border-left: 2px solid color-mix(in srgb, var(--accent) 25%, white); display: flex; flex-direction: column; gap: 12px; }
 .timeline > li { position: relative; }
@@ -104,23 +75,24 @@ button.danger { color: var(--danger); }
 .chips { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 6px; }
 .chips li { border: 1px solid color-mix(in srgb, var(--accent) 35%, white); color: var(--accent); padding: 2px 10px; border-radius: 999px; font-size: 12px; }
 
-/* Modern template: colored header band, no timeline rail */
+/* Modern template: coloured header band, no timeline rail */
 .tpl-modern .sheet-head { background: var(--accent); color: #fff; margin: -48px -52px 20px; padding: 36px 52px 22px; border: 0; }
-.tpl-modern h1 { color: #fff; font-family: 'Figtree', sans-serif; font-weight: 700; }
-.tpl-modern .sheet-contact { color: rgba(255, 255, 255, .85); }
+.tpl-modern h1 { color: #fff; font-family: inherit; font-weight: 700; }
+.tpl-modern .sheet-contact { color: rgba(255, 255, 255, 0.85); }
 .tpl-modern .timeline { border-left: 0; padding-left: 0; }
 .tpl-modern .timeline > li::before { display: none; }
 
-@media (max-width: 560px) { .sheet { padding: 28px 24px; aspect-ratio: auto; } .tpl-modern .sheet-head { margin: -28px -24px 18px; padding: 24px; } }
-
-/* Print: only the resume */
-@page { size: A4; margin: 0; }
-@media print {
-  body { background: #fff; }
-  .topbar, .tabs, .pane-edit, .print-tip { display: none !important; }
-  .workspace { display: block; padding: 0; }
-  .pane-preview { position: static; max-height: none; overflow: visible; display: block !important; }
-  .sheet { box-shadow: none; border-radius: 0; max-width: none; aspect-ratio: auto; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+@media (max-width: 575px) {
+  .sheet { padding: 28px 22px; min-height: 0; }
+  .tpl-modern .sheet-head { margin: -28px -22px 18px; padding: 24px 22px; }
 }
 
-@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+/* ---------- Print: only the resume ---------- */
+@page { size: A4; margin: 0; }
+@media print {
+  .app-header, .mobile-switch, .editor-col, .print-tip { display: none !important; }
+  .app-layout, .app-content { background: #fff !important; padding: 0 !important; max-width: none; }
+  .preview-col { display: block !important; max-width: 100% !important; flex: 0 0 100% !important; padding: 0 !important; }
+  .preview-panel { position: static; }
+  .sheet { box-shadow: none; border-radius: 0; max-width: none; min-height: 0; opacity: 1 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
