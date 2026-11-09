@@ -1,7 +1,7 @@
 import { sampleResume } from './defaults';
 import type { Resume } from './types';
 
-export const STORAGE_KEY = 'resumeforge:v2';
+export const STORAGE_KEY = 'cvcraft:v1';
 
 const isObject = (v: unknown): v is Record<string, unknown> => typeof v === 'object' && v !== null;
 

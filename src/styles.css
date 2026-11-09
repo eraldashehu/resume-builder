@@ -23,7 +23,8 @@
   background: #1677ff;
   color: #fff;
   font-weight: 700;
-  font-size: 18px;
+  font-size: 14px;
+  letter-spacing: -0.02em;
 }
 
 .app-content { padding: 24px; max-width: 1440px; width: 100%; margin: 0 auto; }

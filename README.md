@@ -1,4 +1,4 @@
-# ResumeForge
+# CVCraft
 
 Resume builder with a live A4 preview, an experience timeline and one-click PDF export.
 Built with **React 18**, **TypeScript** and **Ant Design 5**.

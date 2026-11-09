@@ -21,10 +21,10 @@ export const Toolbar = memo(function Toolbar({ settings }: ToolbarProps) {
   return (
     <Flex align="center" justify="space-between" wrap gap={12} className="toolbar">
       <Flex align="center" gap={12}>
-        <div className="logo" aria-hidden="true">R</div>
+        <div className="logo" aria-hidden="true">CV</div>
         <div>
           <Typography.Title level={5} style={{ margin: 0 }}>
-            ResumeForge
+            CVCraft
           </Typography.Title>
           <Typography.Text type="secondary" style={{ fontSize: 12 }}>
             Free · Private · No sign-up
